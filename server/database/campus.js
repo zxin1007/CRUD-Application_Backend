@@ -2,11 +2,6 @@ const sequelize = require ("sequelize")
 const db = require('./database')
 
 const Campus = db.define('campus', {
-    campusId: {
-      type: sequelize.INTEGER,
-      primarykey: true,
-      autoincrement : true
-    },
     name: {
       type: sequelize.STRING,
       allowNull: false

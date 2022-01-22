@@ -2,15 +2,6 @@ const sequelize = require ("sequelize")
 const db = require('./database')
 
 const Student = db.define('student', {
-    studentId: {
-        type: sequelize.INTEGER,
-        primarykey : true,
-        autoincrement : true
-    },
-    campusId: {
-      type: sequelize.INTEGER,
-      allowNull: false
-    },
     firstName: {
       type: sequelize.STRING,
       allowNull: false
@@ -19,8 +10,11 @@ const Student = db.define('student', {
         type: sequelize.STRING,
         allowNull: false
     },
+    email:{
+      type: sequelize.STRING,
+    },
     gpa: {
-        type: sequelize.INTEGER,
+        type: sequelize.FLOAT,
         allowNull: false,
         validate: {
           min: 0,
