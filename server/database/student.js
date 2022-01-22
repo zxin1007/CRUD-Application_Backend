@@ -2,20 +2,20 @@ const sequelize = require ("sequelize")
 const db = require('./database')
 
 const Student = db.define('student', {
-    student_id: {
+    studentId: {
         type: sequelize.INTEGER,
         primarykey : true,
         autoincrement : true
     },
-    campus_id: {
+    campusId: {
       type: sequelize.INTEGER,
       allowNull: false
     },
-    first_name: {
+    firstName: {
       type: sequelize.STRING,
       allowNull: false
     },
-    last_name: {
+    lastName: {
         type: sequelize.STRING,
         allowNull: false
     },

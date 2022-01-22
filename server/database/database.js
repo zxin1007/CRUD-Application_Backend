@@ -1,6 +1,6 @@
 const Sequelize = require ("sequelize")
 
-const sequelize = new Sequelize ('crud','postgres', 'z',{
+const sequelize = new Sequelize ('crud','postgres', 'yourpassword',{
     host: 'localhost',
     dialect: 'postgres',
     define:{

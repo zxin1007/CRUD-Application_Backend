@@ -2,7 +2,7 @@ const sequelize = require ("sequelize")
 const db = require('./database')
 
 const Campus = db.define('campus', {
-    campus_id: {
+    campusId: {
       type: sequelize.INTEGER,
       primarykey: true,
       autoincrement : true
