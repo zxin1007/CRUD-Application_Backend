@@ -2,31 +2,61 @@ const sequelize = require ("sequelize")
 const db = require('./database')
 
 const Student = db.define('student', {
+    id :{
+      type: sequelize.INTEGER,
+      primaryKey: true
+    },
     firstName: {
       type: sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      ignore_whitespace:true,
+      validate:{
+        notNull:{
+          msg : 'Please enter your first name'
+        }
+      }
     },
     lastName: {
         type: sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        ignore_whitespace:true,
+        validate:{
+          notNull:{
+            msg : 'Please enter your last name'
+          }
+        }
     },
     email:{
       type: sequelize.STRING,
+      validate: {
+        notEmpty: {
+          msg : 'Please enter your email'
+        },  
+        isEmail:{
+          msg : 'Please enter a validate email'
+        }
+        
+      }
     },
     gpa: {
         type: sequelize.FLOAT,
         allowNull: false,
         validate: {
-          min: 0,
-          max: 4
+          check(gpa){
+            if (gpa<0||gpa>4){
+              throw new Error ('gpa must be between 0-4')
+            }
+          }
         }
     },
     img: {
-      type: sequelize.STRING
+      type: sequelize.STRING,
+      defaultValue: "url.com"
     }
 },
 {
-  timestamps : false
+  timestamps : false,
+  initialAutoIncrement: 1
 })
 
 module.exports = Student

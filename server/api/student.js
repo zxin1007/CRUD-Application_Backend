@@ -11,20 +11,23 @@ router.route('/')
     }
 })
 .post(async(req, res)=>{
-    try{
+
         console.log(req.body)
-        const newStudent = await Student.create({
+        await Student.create({
                 id:req.body.id,
                 campusId:req.body.campusId,
+                email:req.body.email,
                 firstName:req.body.firstName,
                 lastName:req.body.lastName,
                 gpa:req.body.gpa,
                 img:req.body.img
-            })
-        res.json(newStudent)
-    } catch(err){
-        console.log(err)
-    }
+        }).then(()=>{
+          res.json(newStudent)
+        }).catch((err)=>{
+          if (err.message==='Validation error')console.log('id already existed')
+          else console.log(err.message)
+        })
+    
 })
 
 router.get('/:id', async(req, res) => {
