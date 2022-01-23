@@ -11,9 +11,10 @@ router.route('/')
     }
 })
 .post(async(req, res)=>{
-    try{
+
         console.log(req.body)
-        const newCampus = await Campus.create({
+
+        await Campus.create({
             id:req.body.id,
             name:req.body.name,
             address:req.body.address,
@@ -22,11 +23,14 @@ router.route('/')
             zip:req.body.zip,
             description:req.body.description,
             img:req.body.img
+        }).then(function(campus){
+          res.json(campus)
+          console.log('successful created')
+        }).catch(err=>{
+          if (err.message==='Validation error')console.log('id already existed')
+          else console.log(err.message)
         })
-        res.json(newCampus)
-    } catch(err){
-        console.log(err)
-    }
+        
 })
 
 router.get('/:id', async(req, res) => {
@@ -37,8 +41,6 @@ router.get('/:id', async(req, res) => {
         campus: campus,
         student:student
       })
-    //   res.send(campus)
-    //   console.log(student)
     } catch (error) {
       res.send(error)
     }
