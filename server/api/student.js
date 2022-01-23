@@ -21,8 +21,8 @@ router.route('/')
                 lastName:req.body.lastName,
                 gpa:req.body.gpa,
                 img:req.body.img
-        }).then(()=>{
-          res.json(newStudent)
+        }).then((student)=>{
+          res.json(student)
         }).catch((err)=>{
           if (err.message==='Validation error')console.log('id already existed')
           else console.log(err.message)
