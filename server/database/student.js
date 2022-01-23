@@ -1,6 +1,7 @@
 const sequelize = require ("sequelize")
 const db = require('./database')
 
+//Student table
 const Student = db.define('student', {
     id :{
       type: sequelize.INTEGER,

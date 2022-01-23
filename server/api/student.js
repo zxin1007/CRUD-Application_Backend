@@ -1,8 +1,9 @@
 const router = require('express').Router()
 const { Student, Campus } = require('../database/index')
 
+//listen on localhost:3000/api/student
 router.route('/')
-.get(async (req, res)=>{
+.get(async (req, res)=>{ //list all students
     try{
         const student = await Student.findAll();
         console.log(student)
@@ -15,7 +16,7 @@ router.route('/')
         console.log(err)
     }
 })
-.post(async(req, res)=>{
+.post(async(req, res)=>{ //add a student
 
         console.log(req.body)
         await Student.create({
@@ -35,8 +36,9 @@ router.route('/')
     
 })
 
+//listen on localhost:3000/api/student/{id}
 router.route('/:id')
-.get(async(req, res) => {
+.get(async(req, res) => { //a signle student view
     try {
       const student = await Student.findByPk(req.params.id)
       const campus = await Campus.findOne({where : {id:student.campusId}})
@@ -49,7 +51,7 @@ router.route('/:id')
       res.send(error.message)
     }
 }) 
-.delete(async(req, res)=>{
+.delete(async(req, res)=>{ //delete a student
     try{
       const student = await Student.findByPk(req.params.id)
       await student.destroy()
@@ -57,7 +59,7 @@ router.route('/:id')
       console.log(err)
     }
 })
-.put(async(req, res)=>{
+.put(async(req, res)=>{ //modify student info
   console.log(req.params.id)
   const data = req.body
   const student = await Student.findByPk(req.params.id)

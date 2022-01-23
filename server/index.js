@@ -13,10 +13,10 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use('/api',useApi)
 
-db.authenticate()
+// db.authenticate() //by default
 
 db.sync().then(() => {
-    console.log('db synced')
+    console.log('database synced')
      app.listen(PORT, () =>
       console.log(`listening on port ${PORT}`)
      )
