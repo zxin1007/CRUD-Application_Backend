@@ -5,7 +5,11 @@ router.route('/')
 .get(async (req, res)=>{
     try{
         const campus = await Campus.findAll();
-        res.send(campus)
+        if (campus.length>0){
+          res.send(campus)
+        } else{
+          res.send('There are no campuses registered in the database')
+        }
     } catch(err){
         console.log(err)
     }
@@ -29,11 +33,12 @@ router.route('/')
         }).catch(err=>{
           if (err.message==='Validation error')console.log('id already existed')
           else console.log(err.message)
-        })
-        
+        })   
+
 })
 
-router.get('/:id', async(req, res) => {
+router.route('/:id')
+.get(async(req, res) => {
     try {
       const campus = await Campus.findByPk(req.params.id)
       const student = await Student.findAll({where : {campusId : campus.id}})
@@ -44,6 +49,45 @@ router.get('/:id', async(req, res) => {
     } catch (error) {
       res.send(error)
     }
-  }) 
+})
+.delete(async(req, res)=>{
+  try{
+    const campus = await Campus.findByPk(req.params.id)
+    await campus.destroy()
+  } catch(err){
+    console.log(err)
+  }
+})
+.put(async(req, res)=>{
+  console.log(req.params.id)
+  const data = req.body
+  const campus = await Campus.findByPk(req.params.id)
+  for (let key in data){
+    console.log(key)
+    switch(key){
+      case 'name':
+        await campus.update({name:data[key]})
+        break;
+      case 'img':
+        await campus.update({img:data[key]})
+        break;
+      case 'address':
+        await campus.update({address:data[key]})
+        break; 
+      case 'city':
+        await campus.update({city:data[key]})
+        break;
+      case 'state':
+        await campus.update({state:data[key]})
+        break;
+      case 'zip':
+        await campus.update({zip:data[key]})
+        break;
+      case 'description':
+        await campus.update({description:data[key]})
+        break;
+    }
+  }
+})
 
 module.exports = router
