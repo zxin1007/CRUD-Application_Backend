@@ -44,7 +44,7 @@ const Student = db.define('student', {
         allowNull: false,
         validate: {
           check(gpa){
-            if (gpa<0||gpa>4){
+            if (gpa<=0||gpa>=4){
               throw new Error ('gpa must be between 0-4')
             }
           }

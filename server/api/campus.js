@@ -12,7 +12,7 @@ router.route('/')
           res.send('There are no campuses registered in the database')
         }
     } catch(err){
-        console.log(err)
+      res.send(err)
     }
 })
 .post(async(req, res)=>{ //deal with post request / add campus
@@ -32,11 +32,12 @@ router.route('/')
           res.json(campus)
           console.log('successful created')
         }).catch(err=>{
-          if (err.message==='Validation error')console.log('id already existed')
-          else console.log(err.message)
+          if (err.message==='Validation error')res.send('id already existed')
+          else res.send(err.message)
         })   
 
 })
+
 
 router.route('/:id') //listen on //listen on loacalhost:3000/api/campus/{id}
 .get(async(req, res) => { //single campus view
@@ -51,12 +52,12 @@ router.route('/:id') //listen on //listen on loacalhost:3000/api/campus/{id}
       res.send(error)
     }
 })
-.delete(async(req, res)=>{ //delete request base on campus id
+.delete(async(req, res)=>{ //delete request on single campus 
   try{
     const campus = await Campus.findByPk(req.params.id)
     await campus.destroy()
   } catch(err){
-    console.log(err)
+    res.send(err)
   }
 })
 .put(async(req, res)=>{ //put requst, modify campus info

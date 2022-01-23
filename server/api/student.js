@@ -13,7 +13,7 @@ router.route('/')
           res.send('There are no students registered in the database')
         }
     } catch(err){
-        console.log(err)
+      res.send(err)
     }
 })
 .post(async(req, res)=>{ //add a student
@@ -30,8 +30,8 @@ router.route('/')
         }).then((student)=>{
           res.json(student)
         }).catch((err)=>{
-          if (err.message==='Validation error')console.log('id already existed')
-          else console.log(err.message)
+          if (err.message==='Validation error')res.send('id already existed')
+          else res.send(err.message)
         })
     
 })
@@ -56,7 +56,7 @@ router.route('/:id')
       const student = await Student.findByPk(req.params.id)
       await student.destroy()
     } catch(err){
-      console.log(err)
+      res.send(err)
     }
 })
 .put(async(req, res)=>{ //modify student info
@@ -85,7 +85,7 @@ router.route('/:id')
         try{
           await student.update({campusId:data[key]})
         } catch(err){
-          console.log(err)
+          res.send(err)
         }
         break;
     }
