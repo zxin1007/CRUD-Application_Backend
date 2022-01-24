@@ -66,29 +66,7 @@ router.route('/:id') //listen on //listen on loacalhost:3000/api/campus/{id}
   const campus = await Campus.findByPk(req.params.id)
   for (let key in data){
     console.log(key)
-    switch(key){
-      case 'name':
-        await campus.update({name:data[key]})
-        break;
-      case 'img':
-        await campus.update({img:data[key]})
-        break;
-      case 'address':
-        await campus.update({address:data[key]})
-        break; 
-      case 'city':
-        await campus.update({city:data[key]})
-        break;
-      case 'state':
-        await campus.update({state:data[key]})
-        break;
-      case 'zip':
-        await campus.update({zip:data[key]})
-        break;
-      case 'description':
-        await campus.update({description:data[key]})
-        break;
-    }
+    campus.update({[key]:data[key]})
   }
 })
 
