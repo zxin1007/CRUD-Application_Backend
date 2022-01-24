@@ -65,30 +65,7 @@ router.route('/:id')
   const student = await Student.findByPk(req.params.id)
   for (let key in data){
     console.log(key)
-    switch(key){
-      case 'firstName':
-        await student.update({firstName:data[key]})
-        break;
-      case 'lastName':
-        await student.update({lastName:data[key]})
-        break;
-      case 'email':
-        await student.update({email:data[key]})
-        break; 
-      case 'img':
-        await student.update({img:data[key]})
-        break;
-      case 'gpa':
-        await student.update({gpa:data[key]})
-        break;
-      case 'campusId':
-        try{
-          await student.update({campusId:data[key]})
-        } catch(err){
-          res.send(err)
-        }
-        break;
-    }
+    student.update({[key]:data[key]})
   }
 })
 
