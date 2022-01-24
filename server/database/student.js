@@ -3,10 +3,6 @@ const db = require('./database')
 
 //Student table
 const Student = db.define('student', {
-    id :{
-      type: sequelize.INTEGER,
-      primaryKey: true
-    },
     firstName: {
       type: sequelize.STRING,
       allowNull: false,
