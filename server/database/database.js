@@ -10,7 +10,8 @@ const sequelize = new Sequelize (process.env.DATABASE, process.env.USERNAME, pro
     define:{
         freezeTableName:true
     },
-    logging : false
+    logging : false,
+    native:true
 })
 
 module.exports = sequelize
